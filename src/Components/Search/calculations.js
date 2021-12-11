@@ -213,8 +213,7 @@ export function searchQuery(params){
               sum_grade_c_count
               sum_grade_d_count
               sum_grade_f_count
-              sum_grade_p_count
-              sum_grade_np_count
+              ${(params.excludePNP) ? "" : "sum_grade_p_count sum_grade_np_count"}
               average_gpa
             }
             grade_distributions{
@@ -223,8 +222,7 @@ export function searchQuery(params){
               grade_c_count
               grade_d_count
               grade_f_count
-              grade_p_count
-              grade_np_count
+              ${(params.excludePNP) ? "" : "grade_p_count grade_np_count"}
               average_gpa
               course_offering{
                 year

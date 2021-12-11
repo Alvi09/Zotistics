@@ -60,7 +60,7 @@ export default function Search({ nightMode }) {
         classNumber: query.get("classNumber") || "",
         classCode: query.get("classCode") || "",
         advancedVisible: query.get("advancedVisible") || false,
-        excludePNP: query.get("exludePNP") || false,
+        excludePNP: query.get("excludePNP") || false,
         covid19: query.get("covid19") || false,
         lowerDiv: query.get("lowerDiv") || false,
         upperDiv: query.get("upperDiv") || false
