@@ -2,12 +2,12 @@
     position: fixed;
     left:1em;
     bottom:0;
-    z-index:-1;
+    z-index:1;
 }
 
 img{
     max-width:33%;
-    height: auto;   
+    height: auto;
     transition: transform 0.2s ease-in-out;
 }
 
