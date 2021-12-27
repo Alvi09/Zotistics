@@ -25,7 +25,64 @@ const GRAPHQL_INSTRUCTOR_QUERY = `
       }
     }
 `
-
+const GRAPHQL_GRADE_QUERY = `
+    query(
+        $instructor: String
+        $quarter: String
+        $year: String
+        $department: String
+        $number: String
+        $code: String
+        $excludePNP: Boolean!
+    ) {
+        grades(
+        instructor: $instructor
+        quarter: $quarter
+        year: $year
+        department: $department
+        number: $number
+        code: $code
+        excludePNP: $excludePNP
+        ) {
+        aggregate {
+            sum_grade_a_count
+            sum_grade_b_count
+            sum_grade_c_count
+            sum_grade_d_count
+            sum_grade_f_count
+            sum_grade_p_count @skip(if: $excludePNP)
+            sum_grade_np_count @skip(if: $excludePNP)
+            average_gpa
+        }
+        grade_distributions {
+            grade_a_count
+            grade_b_count
+            grade_c_count
+            grade_d_count
+            grade_f_count
+            grade_p_count @skip(if: $excludePNP)
+            grade_np_count @skip(if: $excludePNP)
+            average_gpa
+            course_offering {
+            year
+            quarter
+            instructors {
+                name
+                shortened_name
+            }
+            section {
+                code
+            }
+            course {
+                department
+                number
+                title
+            }
+            }
+        }
+        }
+    }
+`
 
 const INITIAL_INSTRUCTORS = [
     { name: "SHEPHERD, B.", value: "SHEPHERD, B." },
@@ -60,7 +117,7 @@ export default function Search({ nightMode }) {
         classNumber: query.get("classNumber") || "",
         classCode: query.get("classCode") || "",
         advancedVisible: query.get("advancedVisible") || false,
-        excludePNP: query.get("exludePNP") || false,
+        excludePNP: query.get("excludePNP") || false,
         covid19: query.get("covid19") || false,
         lowerDiv: query.get("lowerDiv") || false,
         upperDiv: query.get("upperDiv") || false
@@ -185,7 +242,7 @@ export default function Search({ nightMode }) {
     */
     const fetchDataFromForm = async (formID) => {
         return fetch(API_URL, {
-            body: JSON.stringify({"query": calc.searchQuery(forms[formID])}),
+            body: JSON.stringify({"query": GRAPHQL_GRADE_QUERY, "variables": calc.getQueryVariables(forms[formID])}),
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -194,7 +251,7 @@ export default function Search({ nightMode }) {
             .then(res => res.json())
             .then(data => {
                 let params = forms[formID];
-                let filtered = calc.filter(data.data.grades.grade_distributions, params.excludePNP, params.covid19, params.lowerDiv, params.upperDiv);
+                let filtered = calc.filter(data.data.grades.grade_distributions, params.covid19, params.lowerDiv, params.upperDiv);
                 let classList = filtered.reverse() // reversed to order it from most recent to oldest
                 let result = calc.calculateData(classList, params, data)
                 setQueryParams(params);

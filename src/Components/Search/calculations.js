@@ -136,7 +136,7 @@ export function cumulativeData(original_data, data, params, option = true){
 /*
   Filters the api result based on the advanced options in the query
  */
-export function filter(data, excludePNP, covid19, lowerDiv, upperDiv){
+export function filter(data, covid19, lowerDiv, upperDiv){
     let final = [];
 
     for(let c of data){
@@ -162,11 +162,6 @@ export function filter(data, excludePNP, covid19, lowerDiv, upperDiv){
                 (co.year === '2020-21' && co.quarter.toUpperCase() === 'FALL') ||
                 (co.year === '2020-21' && co.quarter.toUpperCase() === 'WINTER')){
                 push = false;
-            }
-        }
-        if(excludePNP){
-            if(c.grade_a_count === 0 && c.grade_b_count === 0 && c.grade_c_count === 0 && c.grade_d_count === 0 && c.grade_f_count === 0){
-                push = false
             }
         }
 
@@ -197,53 +192,20 @@ export function calculateData(data, params, originalData, option) {
     };
 }
 
-export function searchQuery(params){
+/*
+    Constructs variables for GraphQL grade distribution query
+*/
+export function getQueryVariables(params) {
     let quarters = params.quarters.join(';');
     let years = params.years.join(';');
-    let code = (params.classCode !== '') ? parseFloat(params.classCode) : null;
-    let args = `instructor: "${params.instructor}", quarter: "${quarters}", year: "${years}", department: "${params.department}",
-        number: "${params.classNumber}", code: ${code}`;
 
-    return `
-        query {
-          grades(${args}) {
-            aggregate{
-              sum_grade_a_count
-              sum_grade_b_count
-              sum_grade_c_count
-              sum_grade_d_count
-              sum_grade_f_count
-              sum_grade_p_count
-              sum_grade_np_count
-              average_gpa
-            }
-            grade_distributions{
-              grade_a_count
-              grade_b_count
-              grade_c_count
-              grade_d_count
-              grade_f_count
-              grade_p_count
-              grade_np_count
-              average_gpa
-              course_offering{
-                year
-                quarter
-                instructors{
-                  name
-                  shortened_name
-                }
-                section{
-                  code
-                }
-                course {
-                  department
-                  number
-                  title
-                }
-              }
-            }
-          }
-        }
-        `
+    return {
+        "instructor": params.instructor,
+        "quarter": quarters,
+        "year": years,
+        "department": params.department,
+        "number": params.number,
+        "code": params.code,
+        "excludePNP": params.excludePNP
+    }
 }
