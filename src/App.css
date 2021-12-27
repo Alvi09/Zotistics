@@ -84,41 +84,6 @@ body{
   color: var(--secondary-text-color);
 }
 
-.form-buttons{
-  background-color: var(--main-blue);
-  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-  margin-right:1em;
-  
-}
-.form-buttons:hover{
-  background-color: var(--main-blue);
-  transform: scale(1.02);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-}
-
-
-
-.add-form-button{
-  color:var(--main-text-color);
-  background-color: transparent;
-  margin-top:10px;
-  width: 40px;
-  height: 40px;
-  padding-top:5px;
-  text-align: center;
-  vertical-align: middle;
-  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
-  border-radius: 50%;
-}
-
-.add-form-button:hover{
-  background-color: var(--main-blue);
-  color:white;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-  transform:scale(1.1);
-  cursor: pointer;
-}
-
 .btn:focus{
   box-shadow: none!important;
 }
@@ -226,23 +191,6 @@ form tab stuff
 }
 
 
-
-.form-tab{
-  margin-top:0.5em;
-  border-bottom-width: 3px;
-  border-bottom-style: solid;
-  padding-top:0.5em;
-  border-top-left-radius: 7px;
-  border-top-right-radius: 7px;
-  transition: all 0.1s ease-out;
-}
-
-.form-tab:hover{
-  cursor: pointer;
-  border-bottom-width: 5px;
-}
-
-
 .search-text-box{
   background-color: var(--secondary-bg-color);
   /*box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);*/
@@ -335,8 +283,8 @@ form tab stuff
 .select-search__input::-webkit-search-results-button,
 .select-search__input::-webkit-search-results-decoration {
   -webkit-appearance:none;
-  padding:none;
-  margin:none;
+  padding:0;
+  margin:0;
   color: var(--secondary-text-color);
 }
 
