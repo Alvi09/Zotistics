@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {Row, Col, FormCheck, Button} from "react-bootstrap";
+import {Row, Col, Form, Button} from "react-bootstrap";
 import { Bar } from 'react-chartjs-2';
 import InfoModal from './Modal'
 import ClassSideList from "./ClassSideList";
@@ -219,22 +219,23 @@ export default function Data(props) {
                 {/*middle section */}
                 <Col sm={8}>
                     {/* Links to expand Instructor and Classes Lists */}
-                    <Row className="justify-content-between d-flex mb-1 px-2" id="topDiv">
-                        <div className="align-self-center">
+                    <Row className="justify-content-between mb-1 px-2" id="topDiv">
+                        <Col>
                             {instructorAmount <= MAX_INSTRUCTORS
-                                ? <Button variant='link' className="text-decoration-none shadow-none text-dark pl-0" onClick={displayInstructorList} style={{ cursor: "pointer", userSelect: "none" }}><span style={{ fontFamily: "Symbola" }}>&#x2B9C;</span> <u>{instructorAmount} Instructors</u></Button>
+                                ? <Button variant='link' className="text-decoration-none shadow-none text-dark ps-0" onClick={displayInstructorList} style={{ cursor: "pointer", userSelect: "none" }}><span style={{ fontFamily: "Symbola" }}>&#x2B9C;</span> <u>{instructorAmount} Instructors</u></Button>
                                 : <p className="text-decoration-none shadow-none text-dark m-0">{instructorAmount} Instructors</p>
                             }
-                        </div>
-                        <div className="text-center">
+                        </Col>
+                        <Col className="text-center">
                             <h5 className="main-text-color">{data.length === 1 ? data[0].quarter + ' ' + data[0].year : 'Multiple'}</h5>
-                        </div>
-                        <div className="text-end align-self-center">
+                        </Col>
+                        <Col className="text-end pe-0">
                             {classAmount <= MAX_CLASSES
-                                ? <Button variant='link' className="text-decoration-none shadow-none text-dark pr-0" onClick={displayClassList} style={{ cursor: "pointer", userSelect: "none" }}><u>{classAmount} Classes</u><span style={{ fontFamily: "Symbola" }}> &#x2B9E;</span></Button>
+                                ? <Button variant='link' className="text-decoration-none shadow-none text-dark pe-0" onClick={displayClassList} style={{ cursor: "pointer", userSelect: "none" }}><u>{classAmount} Classes</u><span style={{ fontFamily: "Symbola" }}> &#x2B9E;</span></Button>
                                 : <p className="text-decoration-none shadow-none text-dark m-0">{classAmount} Classes</p>
                             }
-                        </div>
+                        </Col>
+
                     </Row>
 
                     {/* Graph */}
@@ -250,7 +251,7 @@ export default function Data(props) {
                     </Row>
 
                     {/* Buttons and GPA */}
-                    <Row className="justify-content-center">
+                    <Row className="">
                         <Col sm={3}>
                             {classAmount <= MAX_CLASSES &&
                             <Button variant="outline-secondary" size="sm" onClick={handleModalShow}>
@@ -261,10 +262,9 @@ export default function Data(props) {
                         <Col sm={6} className="text-center">
                             <p className="main-text-color">GPA: {data.map(obj =>obj.averageGPA).join(", ")}</p>
                         </Col>
-                        <Col sm={3} className="text-end">
-                            <FormCheck
+                        <Col sm={3} className="d-flex justify-content-end">
+                            <Form.Switch
                                 id="chartSwitch"
-                                type="switch"
                                 checked={chartSwitch}
                                 onChange={()=>setChartSwitch(!chartSwitch)}
                                 onClick={e => e.target.blur()}
