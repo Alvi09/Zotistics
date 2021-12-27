@@ -287,7 +287,7 @@ export default function Search({ nightMode }) {
     return (
         <div className="search-content-wrapper">
             <Container>
-                <Form onSubmit={handleFormSubmit}>
+                <Form>
                     <Row>
                         {currentForm in forms ?
                             <SearchForm
@@ -295,21 +295,8 @@ export default function Search({ nightMode }) {
                                 instructors={instructors}
                                 handleFormValueChange={handleFormValueChange}
                                 state={forms[currentForm]}
+                                onSubmit={handleFormSubmit}
                             /> : null}
-                    </Row>
-
-                    <Row className="justify-content-center search-form-row" noGutters>
-                        <Col className="text-center">
-                            <Form.Group >
-                                <Button
-                                    className="submit-button"
-                                    as="input"
-                                    type="submit"
-                                    name="submit"
-                                    value="Submit"
-                                />
-                            </Form.Group>
-                        </Col>
                     </Row>
                     {showFormTabs &&
                     <Row className="justify-content-center">

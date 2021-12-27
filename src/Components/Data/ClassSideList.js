@@ -1,15 +1,23 @@
 import React, {useState} from "react";
 import {CaretDownFill} from 'react-bootstrap-icons'
-import {Accordion, Button, Card, Dropdown, ToggleButton, ToggleButtonGroup} from "react-bootstrap";
+import {Accordion, Button, Card, Dropdown, ToggleButton, ToggleButtonGroup, useAccordionButton} from "react-bootstrap";
 import {calculateData} from "../Search/calculations";
 import './Data.css'
 
+function CustomToggle({ eventKey, onClick }) {
+    return (
+        <Button
+            className="card-text text-decoration-none shadow-none sidelist-item px-1"
+            onClick={useAccordionButton(eventKey, onClick)}
+            style={{color: '#111111'}}
+        >
+            <CaretDownFill fontSize="0.65rem"/>
+        </Button>
+    );
+}
+
 export default function ClassSideList(props){
     const [courses , setCourses] = useState(props.data.map(x => x.classes)); // condensed data
-
-    // useEffect(() => {
-    //     setCourses(props.data.map(x => x.classes))
-    // }, [props.data])
 
     const handleSortAmount = (e) => {
         e.preventDefault();
@@ -90,7 +98,7 @@ export default function ClassSideList(props){
     return (
         <div style={{ display: props.classDisplay }}>
             <Card className="overflow-auto shadow-sm" style={{ maxHeight: props.sideInfoHeight }}>
-                <Dropdown className="text-right">
+                <Dropdown className="text-end">
                     <Dropdown.Toggle size="sm" className="sidelist-sort-btn">
                         Sort
                     </Dropdown.Toggle>
@@ -111,10 +119,7 @@ export default function ClassSideList(props){
                                     </ToggleButton>
                                 </ToggleButtonGroup>
 
-                                <Accordion.Toggle className="card-text text-decoration-none shadow-none sidelist-item px-1" as={Button}
-                                                  variant="link" eventKey="0">
-                                    <CaretDownFill fontSize="0.65rem"/>
-                                </Accordion.Toggle>
+                                <CustomToggle eventKey="0" />
 
                                 <Accordion.Collapse eventKey="0">
                                     <div>
@@ -127,7 +132,7 @@ export default function ClassSideList(props){
                             </Accordion>
                         ))}
                         {idx < courses.length - 1 &&
-                        <p className="p-0 m-0">-----</p>
+                            <p className="p-0 m-0">-----</p>
                         }
                         </div>
                     ))}

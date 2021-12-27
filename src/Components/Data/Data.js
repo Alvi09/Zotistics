@@ -229,7 +229,7 @@ export default function Data(props) {
                         <div className="text-center">
                             <h5 className="main-text-color">{data.length === 1 ? data[0].quarter + ' ' + data[0].year : 'Multiple'}</h5>
                         </div>
-                        <div className="text-right align-self-center">
+                        <div className="text-end align-self-center">
                             {classAmount <= MAX_CLASSES
                                 ? <Button variant='link' className="text-decoration-none shadow-none text-dark pr-0" onClick={displayClassList} style={{ cursor: "pointer", userSelect: "none" }}><u>{classAmount} Classes</u><span style={{ fontFamily: "Symbola" }}> &#x2B9E;</span></Button>
                                 : <p className="text-decoration-none shadow-none text-dark m-0">{classAmount} Classes</p>
@@ -261,7 +261,7 @@ export default function Data(props) {
                         <Col sm={6} className="text-center">
                             <p className="main-text-color">GPA: {data.map(obj =>obj.averageGPA).join(", ")}</p>
                         </Col>
-                        <Col sm={3} className="text-right">
+                        <Col sm={3} className="text-end">
                             <FormCheck
                                 id="chartSwitch"
                                 type="switch"

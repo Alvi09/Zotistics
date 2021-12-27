@@ -77,7 +77,7 @@ export default function InstructorSideList(props) {
     return (
         <div style={{ display: props.instructorDisplay}}>
             <Card className="overflow-auto shadow-sm" style={{ maxHeight: props.sideInfoHeight }}>
-                <Dropdown className="text-right">
+                <Dropdown className="text-end">
                     <Dropdown.Toggle size="sm" className="sidelist-sort-btn">
                         Sort
                     </Dropdown.Toggle>
