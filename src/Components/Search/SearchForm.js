@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Row, Col, Container, Collapse, Button } from "react-bootstrap";
+import { Form, Row, Col, Container, Button } from "react-bootstrap";
 import SelectSearch, {fuzzySearch} from "react-select-search";
 
 const dep = require("./departments");

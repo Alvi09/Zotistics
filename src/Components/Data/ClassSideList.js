@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {CaretDownFill} from 'react-bootstrap-icons'
-import {Accordion, Button, Card, Dropdown, ToggleButton, ToggleButtonGroup, useAccordionButton} from "react-bootstrap";
+import {Accordion, Button, Card, Dropdown, ToggleButton, useAccordionButton} from "react-bootstrap";
 import {calculateData} from "../Search/calculations";
 import './Data.css'
 
