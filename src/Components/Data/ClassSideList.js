@@ -111,13 +111,15 @@ export default function ClassSideList(props){
                     <h5 className="card-title mb-0">Classes</h5>
                     {courses.map((x, idx) => (
                         <div key={idx}>
-                        {x.map(c => (
-                            <Accordion key={`${c.name}${idx}`} className="mb-1">
-                                <ToggleButtonGroup type="checkbox" className="">
-                                    <ToggleButton className="sidelist-item px-1" id="tbg-check-2" value={1} onClick={e => e.target.blur()} onChange={e => modifyCourse(e, idx, c.department, c.number)}>
-                                        {c.name} • {c.count}
-                                    </ToggleButton>
-                                </ToggleButtonGroup>
+                        {x.map((c, i) => (
+                            <Accordion key={`${c.name}${i}`} className="mb-1">
+                                <ToggleButton className="sidelist-item px-1" id={`tbg-check-${i}`}
+                                              type="checkbox"
+                                              value={1}
+                                              onClick={e => e.target.blur()}
+                                              onChange={e => modifyCourse(e, idx, c.department, c.number)}>
+                                    {c.name} • {c.count}
+                                </ToggleButton>
 
                                 <CustomToggle eventKey="0" />
 
