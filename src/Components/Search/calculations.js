@@ -201,7 +201,7 @@ export function getQueryVariables(params) {
         "quarter": quarters,
         "year": years,
         "department": params.department,
-        "number": params.number,
+        "number": params.classNumber,
         "code": params.code,
         "excludePNP": params.excludePNP
     }
