@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {CaretDownFill} from 'react-bootstrap-icons'
-import {Accordion, Button, Card, Dropdown, ToggleButton, useAccordionButton} from "react-bootstrap";
+import {Accordion, Button, Card, Dropdown, useAccordionButton} from "react-bootstrap";
 import {calculateData} from "../Search/calculations";
 import './Data.css'
 
@@ -14,6 +14,23 @@ function CustomToggle({ eventKey, onClick }) {
             <CaretDownFill fontSize="0.65rem"/>
         </Button>
     );
+}
+
+function ClassButton({c, i, idx, modifyCourse}) {
+    const [active, setActive] = useState(false);
+
+    return (
+        <Button className="sidelist-item px-1"
+                      active={active}
+                      onClick={(e) => {
+                          e.target.blur()
+                          modifyCourse(e, !active, idx, c.department, c.number)
+                          setActive(!active)
+                      }}>
+            {c.name} • {c.count}
+        </Button>
+    )
+
 }
 
 export default function ClassSideList(props){
@@ -61,14 +78,14 @@ export default function ClassSideList(props){
         setCourses(result);
     }
 
-    const modifyCourse = (e, idx, dept, num) => {
+    const modifyCourse = (e, active, idx, dept, num) => {
         e.preventDefault();
         let result = JSON.parse(JSON.stringify(props.data));
         let cl = result[idx].courseList;
         let removed = new Set(props.removedClasses);
         let exclude = new Set(props.exludeCourses)
 
-        if(e.target.checked){ // removes courses with the specified dept and num
+        if(active){ // removes courses with the specified dept and num
             for(let i = cl.length - 1; i >= 0; i--){
                 if(cl[i].course_offering.course.department === dept && cl[i].course_offering.course.number === num){
                     removed.add(cl[i])
@@ -112,15 +129,8 @@ export default function ClassSideList(props){
                     {courses.map((x, idx) => (
                         <div key={idx}>
                         {x.map((c, i) => (
-                            <Accordion key={`${c.name}${i}`} className="mb-1">
-                                <ToggleButton className="sidelist-item px-1" id={`tbg-check-${i}`}
-                                              type="checkbox"
-                                              value={1}
-                                              onClick={e => e.target.blur()}
-                                              onChange={e => modifyCourse(e, idx, c.department, c.number)}>
-                                    {c.name} • {c.count}
-                                </ToggleButton>
-
+                            <Accordion key={`${c.name}${idx}${i}`} className="mb-1">
+                                <ClassButton c={c} i={i} idx={idx} modifyCourse={modifyCourse}/>
                                 <CustomToggle eventKey="0" />
 
                                 <Accordion.Collapse eventKey="0">
