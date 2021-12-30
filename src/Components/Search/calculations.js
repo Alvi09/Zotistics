@@ -112,10 +112,6 @@ export function cumulativeData(original_data, data, params, option = true){
         stats.p = agg.sum_grade_p_count;
         stats.np = agg.sum_grade_np_count;
         stats.gpa = (agg.average_gpa === null) ? 0.00.toFixed(2) : agg.average_gpa.toFixed(2);
-        // let avg_manual = ((stats.a * 4) + (stats.b * 3) + (stats.c * 2) + (stats.d))/(stats.a + stats.b + stats.c + stats.d + stats.f)
-        // console.log('manual:', avg_manual)
-        // console.log('from api:', agg.average_gpa)
-
     } else { // if at least one advanced option is true
         for(let classObject of data){
             stats.a += classObject.grade_a_count;

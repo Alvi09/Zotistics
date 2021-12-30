@@ -23,7 +23,7 @@ const years = [
 
 const departments = dep.departments;
 
-export default function SearchForm({ formID, instructors, handleFormValueChange, state, onSubmit }) {
+export default function SearchForm({ forms, formID, instructors, handleFormValueChange, state, onSubmit, onClear }) {
 
     const handleValueChange = (e) => {
         handleFormValueChange({ formID: formID, name: e.name, value: e.value })
@@ -48,6 +48,7 @@ export default function SearchForm({ formID, instructors, handleFormValueChange,
                             })
                         }
                         placeholder="Instructor Name"
+                        id="search-instructor"
                     />
                 </Col>
                 <Col className="col-12 col-sm-12 col-md-3">
@@ -64,6 +65,8 @@ export default function SearchForm({ formID, instructors, handleFormValueChange,
                         }
                         placeholder="Quarters"
                         options={quarters}
+                        id="search-quarters"
+                        value={forms[formID].department}
                     />
                 </Col>
                 <Col className="col-12 col-sm-12 col-md-3">
@@ -80,6 +83,7 @@ export default function SearchForm({ formID, instructors, handleFormValueChange,
                         multiple
                         placeholder="Years"
                         options={years}
+                        id="search-years"
                     />
                 </Col>
             </Row>
@@ -97,6 +101,7 @@ export default function SearchForm({ formID, instructors, handleFormValueChange,
                             })
                         }
                         placeholder="All Departments"
+                        id="search-department"
                     />
                 </Col>
                 <Col className="col-12 col-sm-12 col-md-3">
@@ -135,9 +140,11 @@ export default function SearchForm({ formID, instructors, handleFormValueChange,
                             handleValueChange({ name: "excludePNP", value: evt.target.checked })
                         }}
                         type="checkbox"
-                        id={`exclude-pnp`}
-                        label={`Exclude P/NP`}
-                    />
+                        id="exclude-pnp"
+                    >
+                        <Form.Check.Input type="checkbox" className="search-form-check" />
+                        <Form.Check.Label>Exclude P/NP</Form.Check.Label>
+                    </Form.Check>
                     <Form.Check
                         inline
                         checked={state.covid19}
@@ -145,10 +152,11 @@ export default function SearchForm({ formID, instructors, handleFormValueChange,
                             handleValueChange({ name: "covid19", value: evt.target.checked })
                         }}
                         type="checkbox"
-                        id={`exclude-covid-19`}
-                        label={`Exclude COVID-19`}
-                    />
-
+                        id="exclude-covid-19"
+                    >
+                        <Form.Check.Input type="checkbox" className="search-form-check" />
+                        <Form.Check.Label>Exclude COVID-19</Form.Check.Label>
+                    </Form.Check>
                 </Col>
                 <Col sm={5} lg={3}>
                     <Row className="text-center">
@@ -171,7 +179,7 @@ export default function SearchForm({ formID, instructors, handleFormValueChange,
                                         type="submit"
                                         name="clear"
                                         value="Clear"
-                                        onClick={onSubmit}
+                                        onClick={onClear}
                                     />
                                 </Col>
                             </Row>
@@ -186,19 +194,24 @@ export default function SearchForm({ formID, instructors, handleFormValueChange,
                             handleValueChange({ name: "lowerDiv", value: evt.target.checked })
                         }}
                         type="checkbox"
-                        id={`lower-div-only`}
-                        label={`LowerDiv Only`}
-                    />
+                        id="lower-div-only"
+                    >
+                        <Form.Check.Input type="checkbox" className="search-form-check" />
+                        <Form.Check.Label>LowerDiv Only</Form.Check.Label>
+                    </Form.Check>
                     <Form.Check
                         inline
+                        className="me-0"
                         checked={state.upperDiv}
                         onChange={(evt) => {
                             handleValueChange({ name: "upperDiv", value: evt.target.checked })
                         }}
                         type="checkbox"
-                        id={`upper-div-only`}
-                        label={`UpperDiv Only`}
-                    />
+                        id="upper-div-only"
+                    >
+                        <Form.Check.Input type="checkbox" className="search-form-check" />
+                        <Form.Check.Label>UpperDiv Only</Form.Check.Label>
+                    </Form.Check>
                 </Col>
             </Row>
         </Container>

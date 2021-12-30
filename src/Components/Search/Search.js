@@ -273,6 +273,7 @@ export default function Search({ nightMode }) {
         const getResultData = async () => {
             return Promise.all(
                 Object.keys(forms).map(async (formID) => {
+                    console.log(forms)
                     return await fetchDataFromForm(formID);
                 })
             );
@@ -282,19 +283,40 @@ export default function Search({ nightMode }) {
         });
     };
 
+    const handleClear = (e) => {
+        e.preventDefault()
+        //
+        // for(let f of document.getElementsByClassName('search-text-box')){
+        //     f.value = ""
+        // }
+        //
+        // for(let f of document.getElementsByClassName('search-form-check')){
+        //     f.checked = false
+        // }
+        //
+        // document.querySelector('#search-instructor input').value = ""
+        // document.querySelector('#search-quarters input').value = ""
+        // document.querySelector('#search-years input').value = ""
+        // document.querySelector('#search-department input').value = ""
+
+        setForms({ ...forms, [currentForm]: EMPTY_STATE })
+    }
+
 
     return (
         <div className="search-content-wrapper">
             <Container>
-                <Form>
+                <Form id="searchForm">
                     <Row>
                         {currentForm in forms ?
                             <SearchForm
+                                forms={forms}
                                 formID={currentForm}
                                 instructors={instructors}
                                 handleFormValueChange={handleFormValueChange}
                                 state={forms[currentForm]}
                                 onSubmit={handleFormSubmit}
+                                onClear={handleClear}
                             /> : null}
                     </Row>
                     {showFormTabs &&
