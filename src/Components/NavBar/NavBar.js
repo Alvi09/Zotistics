@@ -21,7 +21,7 @@ export default function NavBar() {
                     <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
                         <Nav>
                             <Nav.Link href="/Zotistics/info" className="tabLinks">Info</Nav.Link>
-                            <Nav.Link href="https://forms.gle/eoWtS26Ys8ra4cjK8" className="tabLinks">Feedback</Nav.Link>
+                            <Nav.Link href="https://forms.gle/RzjPU23KP8DgaNf18" className="tabLinks">Feedback</Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Col>
