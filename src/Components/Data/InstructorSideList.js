@@ -1,7 +1,24 @@
 import React, {useState} from "react";
-import {Card, Dropdown, ToggleButton, ToggleButtonGroup} from "react-bootstrap";
+import {Button, Card, Dropdown} from "react-bootstrap";
 import {calculateData} from "../Search/calculations";
 import './Data.css'
+
+function InstructorButton({j, idx, modifyInstructor}) {
+    const [active, setActive] = useState(false);
+
+    return (
+        <Button className="sidelist-item px-1"
+                active={active}
+                onClick={(e) => {
+                    e.target.blur()
+                    modifyInstructor(e, !active, idx, j.name)
+                    setActive(!active)
+                }}>
+            {j.name} • {j.count}
+        </Button>
+    )
+
+}
 
 export default function InstructorSideList(props) {
     const [instructors , setInstructors] = useState(props.instructors); // condensed data
@@ -36,14 +53,14 @@ export default function InstructorSideList(props) {
         setInstructors(result);
     }
 
-    const modifyInstructor = (e, idx, inst) => {
+    const modifyInstructor = (e, active, idx, inst) => {
         e.preventDefault();
         let result = JSON.parse(JSON.stringify(props.data));
         let cl = result[idx].courseList;
         let removed = new Set(props.removedClasses);
         let exclude = new Set(props.exludeInstructors)
 
-        if(e.target.checked){ // removes courses with the specified instructor
+        if(active){ // removes courses with the specified instructor
             for(let i = cl.length - 1; i >= 0; i--){
                 if(cl[i].course_offering.instructors[0].shortened_name === inst){
                     removed.add(cl[i])
@@ -86,12 +103,8 @@ export default function InstructorSideList(props) {
                     <h5 className="card-title mb-1">Instructors</h5>
                     {instructors.map((x, idx) => (
                         <div key={idx}>
-                            {x.map(j => (
-                                <ToggleButtonGroup key={`${j.name}${idx}`} type="checkbox" className="">
-                                    <ToggleButton className="sidelist-item px-1 mb-1" value={1} onClick={e => e.target.blur()} onChange={e => modifyInstructor(e, idx, j.name)}>
-                                        {j.name} • {j.count}
-                                    </ToggleButton>
-                                </ToggleButtonGroup>
+                            {x.map((j, i) => (
+                                <InstructorButton key={i} j={j} idx={idx} modifyInstructor={modifyInstructor}/>
                             ))}
                             {/* Adds line divider between different query tabs*/}
                             {idx < instructors.length - 1 &&

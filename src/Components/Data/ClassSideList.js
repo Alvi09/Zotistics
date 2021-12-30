@@ -16,7 +16,7 @@ function CustomToggle({ eventKey, onClick }) {
     );
 }
 
-function ClassButton({c, i, idx, modifyCourse}) {
+function ClassButton({c, idx, modifyCourse}) {
     const [active, setActive] = useState(false);
 
     return (
@@ -130,7 +130,7 @@ export default function ClassSideList(props){
                         <div key={idx}>
                         {x.map((c, i) => (
                             <Accordion key={`${c.name}${idx}${i}`} className="mb-1">
-                                <ClassButton c={c} i={i} idx={idx} modifyCourse={modifyCourse}/>
+                                <ClassButton c={c} idx={idx} modifyCourse={modifyCourse}/>
                                 <CustomToggle eventKey="0" />
 
                                 <Accordion.Collapse eventKey="0">
