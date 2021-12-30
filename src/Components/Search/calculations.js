@@ -180,13 +180,10 @@ export function calculateData(data, params, originalData, option) {
     addData(data);
     let count = data.length; // total amount of classes in query
     let stats = cumulativeData(originalData, data, params, option); // object that has grade data
-    let classes = classList(data);
-    let instructors = instructorList(data);
     let displayTerm = quarterYear(params.quarters, params.years); // used to display term in results page above graph
 
     return {count: count, a: stats.a, b: stats.b, c: stats.c, d: stats.d, f: stats.f, p: stats.p, np: stats.np,
-        averageGPA: stats.gpa, classes: classes, instructors: instructors,
-        instructor: params.instructor, quarter: displayTerm.quarter, year: displayTerm.year,
+        averageGPA: stats.gpa, instructor: params.instructor, quarter: displayTerm.quarter, year: displayTerm.year,
         department: params.department, classNumber: params.classNumber,
         classCode: params.classCode, courseList: data
     };

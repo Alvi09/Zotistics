@@ -4,7 +4,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
-import DataPage from "../Data/DataPage";
+import Data from "../Data/Data";
 import SearchForm from "./SearchForm";
 import FormTabs from "./FormTabs"
 import {useLocation} from 'react-router-dom';
@@ -84,7 +84,7 @@ const GRAPHQL_GRADE_QUERY = `
 `
 
 const INITIAL_INSTRUCTORS = [
-    { name: "PATTIS, R.", value: "PATTIS, R." },
+    { name: "SHEPHERD, B.", value: "SHEPHERD, B." },
     { name: "LEVIN, K.", value: "LEVIN, K." },
     { name: "SEONG, A.", value: "SEONG, A." },
     { name: "SPENCER, P.", value: "SPENCER, P." },
@@ -317,7 +317,7 @@ export default function Search({ nightMode }) {
                 </Form>
 
                 {results.length !== 0 &&
-                <DataPage
+                <Data
                     data={results}
                     nightMode={nightMode}
                     setResults={setResults}

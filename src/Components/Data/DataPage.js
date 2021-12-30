@@ -7,8 +7,6 @@ import InstructorSideList from "./InstructorSideList";
 
 export default function DataPage(props) {
     const [data, setData] = useState(JSON.parse(JSON.stringify(props.data)))
-    const [instructorAmount, setInstructorAmount] = useState(data.map(x => Object.keys(x.instructors).length).reduce((a, b) => a + b))
-    const [classAmount, setClassAmount] = useState(data.map(x => x.count).reduce((a, b) => a + b))
     const [instructorDisplay, setInstructorDisplay] = useState("none"); //display none or inherit
     const [classDisplay, setClassDisplay] = useState("none"); //display none or inherit
     const [sideInfoHeight, setSideInfoHeight] = useState("0px"); // max height for the side cards that changes on window resize
@@ -200,11 +198,12 @@ export default function DataPage(props) {
             <Row className="data-row">
                 {/* Instructor Side List */}
                 <Col sm={2} className="justify-content-center text-center px-0">
-                    {instructorAmount <= MAX_INSTRUCTORS &&
+                    {props.instructorAmount <= MAX_INSTRUCTORS &&
                         <InstructorSideList
                             instructorDisplay={instructorDisplay}
                             sideInfoHeight={sideInfoHeight}
                             data={data}
+                            instructors={props.instructors}
                             setData={setData}
                             queryParams={props.queryParams}
                             removedClasses={removedClasses}
@@ -221,18 +220,18 @@ export default function DataPage(props) {
                     {/* Links to expand Instructor and Classes Lists */}
                     <Row className="justify-content-between mb-1 px-2" id="topDiv">
                         <Col>
-                            {instructorAmount <= MAX_INSTRUCTORS
-                                ? <Button variant='link' className="text-decoration-none shadow-none text-dark ps-0" onClick={displayInstructorList} style={{ cursor: "pointer", userSelect: "none" }}><span style={{ fontFamily: "Symbola" }}>&#x2B9C;</span> <u>{instructorAmount} Instructors</u></Button>
-                                : <p className="text-decoration-none shadow-none text-dark m-0">{instructorAmount} Instructors</p>
+                            {props.instructorAmount <= MAX_INSTRUCTORS
+                                ? <Button variant='link' className="text-decoration-none shadow-none text-dark ps-0" onClick={displayInstructorList} style={{ cursor: "pointer", userSelect: "none" }}><span style={{ fontFamily: "Symbola" }}>&#x2B9C;</span> <u>{props.instructorAmount} Instructors</u></Button>
+                                : <p className="text-decoration-none shadow-none text-dark m-0">{props.instructorAmount} Instructors</p>
                             }
                         </Col>
                         <Col className="text-center">
                             <h5 className="main-text-color">{data.length === 1 ? data[0].quarter + ' ' + data[0].year : 'Multiple'}</h5>
                         </Col>
                         <Col className="text-end pe-0">
-                            {classAmount <= MAX_CLASSES
-                                ? <Button variant='link' className="text-decoration-none shadow-none text-dark pe-0" onClick={displayClassList} style={{ cursor: "pointer", userSelect: "none" }}><u>{classAmount} Classes</u><span style={{ fontFamily: "Symbola" }}> &#x2B9E;</span></Button>
-                                : <p className="text-decoration-none shadow-none text-dark m-0">{classAmount} Classes</p>
+                            {props.classAmount <= MAX_CLASSES
+                                ? <Button variant='link' className="text-decoration-none shadow-none text-dark pe-0" onClick={displayClassList} style={{ cursor: "pointer", userSelect: "none" }}><u>{props.classAmount} Classes</u><span style={{ fontFamily: "Symbola" }}> &#x2B9E;</span></Button>
+                                : <p className="text-decoration-none shadow-none text-dark m-0">{props.classAmount} Classes</p>
                             }
                         </Col>
 
@@ -253,7 +252,7 @@ export default function DataPage(props) {
                     {/* Buttons and GPA */}
                     <Row className="">
                         <Col sm={3}>
-                            {classAmount <= MAX_CLASSES &&
+                            {props.classAmount <= MAX_CLASSES &&
                             <Button variant="outline-secondary" size="sm" onClick={handleModalShow}>
                                 Details
                             </Button>
@@ -276,11 +275,12 @@ export default function DataPage(props) {
 
                 {/* Class Side List*/}
                 <Col sm={2} className="justify-content-center text-center px-0">
-                    {classAmount <= MAX_CLASSES &&
+                    {props.classAmount <= MAX_CLASSES &&
                         <ClassSideList
                             classDisplay={classDisplay}
                             sideInfoHeight={sideInfoHeight}
                             data={data}
+                            classes={props.classes}
                             setData={setData}
                             queryParams={props.queryParams}
                             removedClasses={removedClasses}
@@ -292,7 +292,7 @@ export default function DataPage(props) {
                     }
                 </Col>
             </Row>
-            {classAmount <= MAX_CLASSES &&
+            {props.classAmount <= MAX_CLASSES &&
                 <InfoModal handleModalClose={handleModalClose} show={show} data={data} />
             }
         </>

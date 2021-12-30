@@ -17,7 +17,7 @@ function CustomToggle({ eventKey, onClick }) {
 }
 
 export default function ClassSideList(props){
-    const [courses , setCourses] = useState(props.data.map(x => x.classes)); // condensed data
+    const [courses , setCourses] = useState(props.classes); // condensed data
 
     const handleSortAmount = (e) => {
         e.preventDefault();

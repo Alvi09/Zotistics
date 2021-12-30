@@ -4,11 +4,7 @@ import {calculateData} from "../Search/calculations";
 import './Data.css'
 
 export default function InstructorSideList(props) {
-    const [instructors , setInstructors] = useState(props.data.map(x => x.instructors)); // condensed data
-
-    // useEffect(() => {
-    //     setInstructors(props.data.map(x => x.instructors))
-    // }, [props.data])
+    const [instructors , setInstructors] = useState(props.instructors); // condensed data
 
     const handleSortAmount = (e) => {
         e.preventDefault();
