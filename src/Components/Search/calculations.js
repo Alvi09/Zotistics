@@ -136,7 +136,7 @@ export function cumulativeData(original_data, data, params, option = true) {
 /*
   Filters the api result based on the advanced options in the query
  */
-export function filter(data, excludePNP, covid19, lowerDiv, upperDiv) {
+export function filter(data, covid19, lowerDiv, upperDiv) {
     let final = [];
 
     for (let c of data) {
