@@ -189,8 +189,7 @@ export function calculateData(data, params, originalData, option) {
 
     return {
         count: count, a: stats.a, b: stats.b, c: stats.c, d: stats.d, f: stats.f, p: stats.p, np: stats.np,
-        averageGPA: stats.gpa, classes: classes, instructors: instructors,
-        instructor: params.instructor, quarter: displayTerm.quarter, year: displayTerm.year,
+        averageGPA: stats.gpa, instructor: params.instructor, quarter: displayTerm.quarter, year: displayTerm.year,
         department: params.department, classNumber: params.classNumber,
         classCode: params.classCode, courseList: data
     };
