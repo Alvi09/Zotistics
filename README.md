@@ -12,14 +12,30 @@ Zotistics is UCI's premier grade distribution analysis tool! We use the PeterPor
 
 ## Documentation
 
-Coming soon!
+### Setting up your development environment
+1. Clone the Zotistics repository.
+
+```
+git clone https://github.com/icssc-projects/Zotistics.git
+```
+
+2. Navigate to the root directory and install its dependencies.
+```
+cd Zotistics
+npm install
+```
+3. Start the development server.
+```
+npm start
+```
+4. Zotistics should load locally at http://localhost:3000/
 
 ## Where does the data come from?
 
 We consolidate our data directly from official UCI sources such as: UCI Catalogue, UCI Public Records Office, and UCI Webreg. We routinely monitor for updates to ensure you get the most accurate information to serve on your application.
 
 ## Bug Report
-🐞 If you encountered any issues or bug, please open an issue @ https://github.com/icssc-projects/peterportal-client/issues/new
+🐞 If you encountered any issues or bug, please open an issue @ https://github.com/icssc-projects/Zotistics/issues/new
 
 
 ## Other Disclaimer
