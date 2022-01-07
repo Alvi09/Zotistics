@@ -162,7 +162,8 @@ export function filter(data, covid19, lowerDiv, upperDiv) {
                 '2020-21 SUMMER',
                 '2020-21 FALL',
                 '2020-21 WINTER',
-                '2020-21 SPRING'
+                '2020-21 SPRING',
+                "2021-22 SUMMER"
             ]);
 
             if (covid_quarters.has(co.year + " " + co.quarter.toUpperCase())) {
