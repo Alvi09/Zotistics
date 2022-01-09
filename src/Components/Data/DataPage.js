@@ -13,9 +13,6 @@ export default function DataPage(props) {
     const [chartSwitch, setChartSwitch] = useState(false); //true = numbers, false = percent
     const labels =  ['A', 'B', 'C', 'D', 'F', 'P', 'NP'];
     const [show, setShow] = useState(false); // Modal display
-    const [excludeInstructors, setExcludeInstructors] = useState(new Set()) // instructor name
-    const [excludeCourses, setExcludeCourses] = useState(new Set()) // course department and number
-    const [removedClasses, setRemovedClasses] = useState(new Set()) // removed course objects
 
     // caps viewable side list
     const MAX_INSTRUCTORS = 500
@@ -29,8 +26,6 @@ export default function DataPage(props) {
         setGraphDataPercent(percent);
         setGraphDataPopulation(dataForGraph(false));
         setChartData({labels:labels, datasets: percent})
-        // setInstructorAmount(data.map(x => Object.keys(x.instructors).length).reduce((a, b) => a + b))
-        // setClassAmount(data.map(x => x.count).reduce((a, b) => a + b))
     }, [data])
 
     /*
@@ -206,11 +201,6 @@ export default function DataPage(props) {
                             instructors={props.instructors}
                             setData={setData}
                             queryParams={props.queryParams}
-                            removedClasses={removedClasses}
-                            setRemovedClasses={setRemovedClasses}
-                            exludeInstructors={excludeInstructors}
-                            setExcludeInstructors={setExcludeInstructors}
-                            exludeCourses={excludeCourses}
                         />
                     }
                 </Col>
@@ -283,11 +273,6 @@ export default function DataPage(props) {
                             classes={props.classes}
                             setData={setData}
                             queryParams={props.queryParams}
-                            removedClasses={removedClasses}
-                            setRemovedClasses={setRemovedClasses}
-                            exludeCourses={excludeCourses}
-                            setExcludeCourses={setExcludeCourses}
-                            exludeInstructors={excludeInstructors}
                         />
                     }
                 </Col>
