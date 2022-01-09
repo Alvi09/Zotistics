@@ -16,18 +16,6 @@ function CustomToggle({ eventKey, c, onClick }) {
     );
 }
 
-function ClassButton({c, idx}) {
-    const [active, setActive] = useState(false);
-
-    return (
-        <Button className="sidelist-item px-1"
-                      active={active}>
-            {c.name} • {c.count}
-        </Button>
-    )
-
-}
-
 export default function ClassSideList(props){
     const [courses , setCourses] = useState(props.classes); // condensed data
 
