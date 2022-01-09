@@ -1,24 +1,6 @@
 import React, {useState} from "react";
 import {Button, Card, Dropdown} from "react-bootstrap";
-import {calculateData} from "../Search/calculations";
 import './Data.css'
-
-function InstructorButton({j, idx, modifyInstructor}) {
-    const [active, setActive] = useState(false);
-
-    return (
-        <Button className="sidelist-item px-1"
-                active={active}
-                onClick={(e) => {
-                    e.target.blur()
-                    modifyInstructor(e, !active, idx, j.name)
-                    setActive(!active)
-                }}>
-            {j.name} • {j.count}
-        </Button>
-    )
-
-}
 
 export default function InstructorSideList(props) {
     const [instructors , setInstructors] = useState(props.instructors); // condensed data
@@ -53,40 +35,6 @@ export default function InstructorSideList(props) {
         setInstructors(result);
     }
 
-    const modifyInstructor = (e, active, idx, inst) => {
-        e.preventDefault();
-        let result = JSON.parse(JSON.stringify(props.data));
-        let cl = result[idx].courseList;
-        let removed = new Set(props.removedClasses);
-        let exclude = new Set(props.exludeInstructors)
-
-        if(active){ // removes courses with the specified instructor
-            for(let i = cl.length - 1; i >= 0; i--){
-                if(cl[i].course_offering.instructors[0].shortened_name === inst){
-                    removed.add(cl[i])
-                    exclude.add(inst)
-                    cl.splice(i, 1);
-                }
-            }
-        } else { // adds back the courses with the specified instructor
-            for(let course of props.removedClasses){
-                let name = `${course.course_offering.course.department} ${course.course_offering.course.number}`
-                if(course.course_offering.instructors[0].shortened_name === inst && !props.exludeCourses.has(name)) {
-                    cl.push(course)
-                    removed.delete(course)
-                    exclude.delete(inst)
-                }
-            }
-        }
-
-        let final = calculateData(cl, props.queryParams, undefined, false)
-        final.color = result[idx].color
-        result[idx] = final
-        props.setData(result);
-        props.setRemovedClasses(removed)
-        props.setExcludeInstructors(exclude)
-    }
-
     return (
         <div style={{ display: props.instructorDisplay}}>
             <Card className="overflow-auto shadow-sm" style={{ maxHeight: props.sideInfoHeight }}>
@@ -104,7 +52,7 @@ export default function InstructorSideList(props) {
                     {instructors.map((x, idx) => (
                         <div key={idx}>
                             {x.map((j, i) => (
-                                <InstructorButton key={i} j={j} idx={idx} modifyInstructor={modifyInstructor}/>
+                                <p className="mb-2">{j.name} • {j.count}</p>
                             ))}
                             {/* Adds line divider between different query tabs*/}
                             {idx < instructors.length - 1 &&
