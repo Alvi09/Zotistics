@@ -1,32 +1,27 @@
 import React, {useState} from "react";
 import {CaretDownFill} from 'react-bootstrap-icons'
 import {Accordion, Button, Card, Dropdown, useAccordionButton} from "react-bootstrap";
-import {calculateData} from "../Search/calculations";
 import './Data.css'
 
-function CustomToggle({ eventKey, onClick }) {
+function CustomToggle({ eventKey, c, onClick }) {
     return (
         <Button
             className="card-text text-decoration-none shadow-none sidelist-item px-1"
             onClick={useAccordionButton(eventKey, onClick)}
             style={{color: '#111111'}}
         >
+            <span>{c.name} • {c.count} </span>
             <CaretDownFill fontSize="0.65rem"/>
         </Button>
     );
 }
 
-function ClassButton({c, idx, modifyCourse}) {
+function ClassButton({c, idx}) {
     const [active, setActive] = useState(false);
 
     return (
         <Button className="sidelist-item px-1"
-                      active={active}
-                      onClick={(e) => {
-                          e.target.blur()
-                          modifyCourse(e, !active, idx, c.department, c.number)
-                          setActive(!active)
-                      }}>
+                      active={active}>
             {c.name} • {c.count}
         </Button>
     )
@@ -78,40 +73,6 @@ export default function ClassSideList(props){
         setCourses(result);
     }
 
-    const modifyCourse = (e, active, idx, dept, num) => {
-        e.preventDefault();
-        let result = JSON.parse(JSON.stringify(props.data));
-        let cl = result[idx].courseList;
-        let removed = new Set(props.removedClasses);
-        let exclude = new Set(props.exludeCourses)
-
-        if(active){ // removes courses with the specified dept and num
-            for(let i = cl.length - 1; i >= 0; i--){
-                if(cl[i].course_offering.course.department === dept && cl[i].course_offering.course.number === num){
-                    removed.add(cl[i])
-                    exclude.add(`${dept} ${num}`)
-                    cl.splice(i, 1);
-                }
-            }
-        } else { // adds back the courses with the specified dept and num
-            for(let course of props.removedClasses){
-                if(course.course_offering.course.department === dept && course.course_offering.course.number === num &&
-                    !props.exludeInstructors.has(course.course_offering.instructors[0].shortened_name)) { // does not add back course with an instructor still excluded
-                    cl.push(course)
-                    removed.delete(course)
-                    exclude.delete(`${dept} ${num}`)
-                }
-            }
-        }
-
-        let final = calculateData(cl, props.queryParams, undefined, false)
-        final.color = result[idx].color
-        result[idx] = final
-        props.setData(result);
-        props.setRemovedClasses(removed)
-        props.setExcludeCourses(exclude)
-    }
-
     return (
         <div style={{ display: props.classDisplay }}>
             <Card className="overflow-auto shadow-sm" style={{ maxHeight: props.sideInfoHeight }}>
@@ -130,8 +91,7 @@ export default function ClassSideList(props){
                         <div key={idx}>
                         {x.map((c, i) => (
                             <Accordion key={`${c.name}${idx}${i}`} className="mb-1">
-                                <ClassButton c={c} idx={idx} modifyCourse={modifyCourse}/>
-                                <CustomToggle eventKey="0" />
+                                <CustomToggle eventKey="0" c={c} />
 
                                 <Accordion.Collapse eventKey="0">
                                     <div>

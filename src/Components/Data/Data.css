@@ -1,4 +1,21 @@
 
+.side-list-toggle {
+    background-color: rgba(71, 72, 76, 0.1)!important;
+    border: none!important;
+    color:var(--main-text-color)!important;
+}
+
+.side-list-toggle:hover {
+    background-color: rgba(71, 72, 76, 0.2)!important;
+    color:var(--main-text-color);
+    font-weight: bold;
+}
+
+.side-list-toggle:active {
+    background-color: rgba(71, 72, 76, 0.2)!important;
+    color:var(--main-text-color);
+}
+
 .sidelist-sort-btn {
     background-color: #47484C!important;
     border: none!important;
@@ -15,6 +32,11 @@
 .sidelist-sort-btn:active {
     background-color: #47484C!important;
     opacity: 0.9;
+}
+
+.sidelist-button {
+    border: none!important;
+    color:blue;
 }
 
 .sidelist-item {

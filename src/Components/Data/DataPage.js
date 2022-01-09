@@ -221,7 +221,7 @@ export default function DataPage(props) {
                     <Row className="justify-content-between mb-1 px-2" id="topDiv">
                         <Col>
                             {props.instructorAmount <= MAX_INSTRUCTORS
-                                ? <Button variant='link' className="text-decoration-none shadow-none text-dark ps-0" onClick={displayInstructorList} style={{ cursor: "pointer", userSelect: "none" }}><span style={{ fontFamily: "Symbola" }}>&#x2B9C;</span> <u>{props.instructorAmount} Instructors</u></Button>
+                                ? <Button className="side-list-toggle" onClick={displayInstructorList}>&#x2B9C; {props.instructorAmount} Instructors</Button>
                                 : <p className="text-decoration-none shadow-none text-dark m-0">{props.instructorAmount} Instructors</p>
                             }
                         </Col>
@@ -230,7 +230,7 @@ export default function DataPage(props) {
                         </Col>
                         <Col className="text-end pe-0">
                             {props.classAmount <= MAX_CLASSES
-                                ? <Button variant='link' className="text-decoration-none shadow-none text-dark pe-0" onClick={displayClassList} style={{ cursor: "pointer", userSelect: "none" }}><u>{props.classAmount} Classes</u><span style={{ fontFamily: "Symbola" }}> &#x2B9E;</span></Button>
+                                ? <Button className="side-list-toggle" onClick={displayClassList}>{props.classAmount} Classes &#x2B9E;</Button>
                                 : <p className="text-decoration-none shadow-none text-dark m-0">{props.classAmount} Classes</p>
                             }
                         </Col>

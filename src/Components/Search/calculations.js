@@ -99,10 +99,10 @@ export function addData(data){
 /*
   Sums up the amount of grades in the query and averages the gpa
  */
-export function cumulativeData(original_data, data, params, option = true){
+export function cumulativeData(original_data, data, params){
     let stats = {a: 0, b: 0, c: 0, d: 0, f: 0, p: 0, np: 0, gpa: 0}
 
-    if(option && !params.excludePNP && !params.covid19 && !params.lowerDiv && !params.upperDiv){ // no advanced options
+    if(!params.excludePNP && !params.covid19 && !params.lowerDiv && !params.upperDiv){ // no advanced options
         let agg = original_data.data.grades.aggregate
         stats.a = agg.sum_grade_a_count;
         stats.b = agg.sum_grade_b_count;
@@ -172,10 +172,10 @@ export function filter(data, covid19, lowerDiv, upperDiv){
 /*
     Combines all calculations into one function
  */
-export function calculateData(data, params, originalData, option) {
+export function calculateData(data, params, originalData) {
     addData(data);
     let count = data.length; // total amount of classes in query
-    let stats = cumulativeData(originalData, data, params, option); // object that has grade data
+    let stats = cumulativeData(originalData, data, params); // object that has grade data
     let displayTerm = quarterYear(params.quarters, params.years); // used to display term in results page above graph
 
     return {count: count, a: stats.a, b: stats.b, c: stats.c, d: stats.d, f: stats.f, p: stats.p, np: stats.np,
