@@ -3,10 +3,11 @@
     left:1em;
     bottom:0;
     z-index:1;
+    width:14%;
 }
 
 img{
-    max-width:33%;
+    max-width: 100%;
     height: auto;
     transition: transform 0.2s ease-in-out;
 }
@@ -16,3 +17,13 @@ img:hover{
     cursor:pointer;
 }
 
+@media screen and (max-width: 660px) and (max-height: 560px) {
+    #dog {
+        width: 0%;
+    }
+}
+@media screen and (max-height: 350px){
+    #dog {
+        width: 0%;
+    }
+}
